@@ -4,15 +4,15 @@
 
 ## My final project
 
-I created a data modeling methodology for Cassandra-based model evolution that incorporates conceptual data model + workload (in the form of queries).
+I created a data modeling methodology for Cassandra-based schema evolution that incorporates conceptual data model + workload (in the form of queries).
 
 Basically:
 
 ```
-Evolved <ER Model + Workload Queries> ⇒ Cassandra Model + Query Execution Plans
+Evolved <ER Model + Workload Queries> ⇒ Cassandra Schema + Query Execution Plans
 ```
 
-It can only accept read queries as workload.
+It can only accept read queries as workload. And yes, the workload queries are for the ER model! Not SQL.
 
 ## What's in this repository
 
