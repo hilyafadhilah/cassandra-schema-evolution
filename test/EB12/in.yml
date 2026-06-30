@@ -1,0 +1,223 @@
+subcases:
+  A:
+    users: 10_000
+    communities: 100
+    members_per_community: 1000
+  B:
+    users: 25_000
+    communities: 200
+    members_per_community: 1000
+  C:
+    users: 25_000
+    communities: 250
+    members_per_community: 2000
+seed: 0xDEADBEEF
+
+cost:
+  cf1:
+    - { op: unload, c: 6, p: users, r: memberships_per_user }
+    - op: load
+      c: 7
+      p: users
+      r: memberships_per_user
+  cf2:
+    - { op: unload, c: 6, p: users, r: memberships_per_user }
+    - op: load
+      c: 4
+      p: users
+      r: memberships_per_user
+  cf3: 0
+  cf4:
+    - { op: unload, c: 6, p: users, r: memberships_per_user }
+    - op: load
+      c: 4
+      p: users
+      r: memberships_per_user
+  cf5:
+    - { op: unload, c: 6, p: users, r: memberships_per_user }
+    - op: load
+      c: 0
+      p: users
+      r: 1
+      agg:
+        - type: map
+          v: memberships_per_user
+        - type: map
+          v: memberships_per_user
+  cf6:
+    - { op: unload, c: 6, p: users, r: memberships_per_user }
+    - op: load
+      c: 0
+      p: users
+      r: 1
+      agg:
+        - type: map
+          v: memberships_per_user
+  cf7:
+    - { op: unload, c: 6, p: users, r: memberships_per_user }
+    - op: load
+      c: 4
+      p: total_memberships
+      r: 1
+  cf8:
+    - { op: unload, c: 6, p: users, r: memberships_per_user }
+    - op: load
+      c: 0
+      p: users
+      r: 1
+      agg:
+        - type: set
+          v: memberships_per_user
+  cf9:
+    - { op: unload, c: 6, p: users, r: memberships_per_user }
+    - op: load
+      c: 6
+      p: total_memberships
+      r: 1
+  cf10:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 6
+      p: communities
+      r: members_per_community
+  cf11:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 4
+      p: communities
+      r: members_per_community
+  cf12: 0
+  cf13:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 6
+      p: communities
+      r: members_per_community
+  cf14:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 3
+      p: communities
+      r: members_per_community
+  cf15:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 3
+      p: total_memberships
+      r: 1
+  cf16:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 1
+      p: total_memberships
+      r: 1
+  cf17:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 6
+      p: communities
+      r: members_per_community
+  cf18:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 3
+      p: communities
+      r: members_per_community
+  cf19:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 6
+      p: communities
+      r: members_per_community
+  cf20:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 4
+      p: communities
+      r: members_per_community
+  cf21:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 1
+      p: communities
+      r: members_per_community
+  m:
+    - op: load
+      c: 9
+      p: total_memberships
+      r: 1
+
+read:
+  tables:
+    cf1: { w: 7 }
+    cf2: { w: 4 }
+    cf3: { w: 4 }
+    cf4: { w: 4 }
+    cf5: { w: 9 }
+    cf6: { w: 8 }
+    cf7: { w: 4 }
+    cf8: { w: 8 }
+    cf9: { w: 6 }
+    cf10: { w: 6 }
+    cf11: { w: 4 }
+    cf12: { w: 7 }
+    cf13: { w: 6 }
+    cf14: { w: 3 }
+    cf15: { w: 3 }
+    cf16: { w: 1 }
+    cf17: { w: 6 }
+    cf18: { w: 3 }
+    cf19: { w: 6 }
+    cf20: { w: 4 }
+    cf21: { w: 1 }
+    m: { w: 9 }
+  queries:
+    q09:
+      f: 50
+      plans:
+        - cf1:
+        - cf2:
+          C: { n_var: memberships_per_user }
+    q10:
+      f: 50
+      plans:
+        - cf10:
+        - cf11:
+          U: { n_var: members_per_community }
+    q11:
+      f: 50
+      plans:
+        - cf10:
+        - cf11:
+          U: { n_var: members_per_community }
+
+results:
+  qmin:
+    plans: { q09: 2, q10: 2, q11: 2 }
+    data:
+      cf2:
+        - { group: init, table: user_memberships, op: unload }
+        - { group: qmin, table: cf2, op: load }
+      cf11:
+        - { group: init, table: community_members, op: unload }
+        - { group: qmin, table: cf11, op: load }
+  qbal:
+    plans: { q09: 1, q10: 1, q11: 1 }
+    data:
+      cf1:
+        - { group: init, table: user_memberships, op: unload }
+        - { group: qbal, table: cf1, op: load }
+      cf10:
+        - { group: init, table: community_members, op: unload }
+        - { group: qbal, table: cf10, op: load }
+  alt:
+    plans: { q09: 1, q10: 1, q11: 1 }
+    data:
+      cf8:
+        - { group: init, table: user_memberships, op: unload }
+        - { group: alt, table: cf8, op: load }
+      cf21:
+        - { group: init, table: community_members, op: unload }
+        - { group: alt, table: cf21, op: load }
+      m:
+        - { group: alt, table: memberships, op: load }

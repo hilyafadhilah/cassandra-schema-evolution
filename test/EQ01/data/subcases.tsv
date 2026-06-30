@@ -1,0 +1,4 @@
+subcase	seed	tags_per_post	embeds_per_post	users	posts_per_user	communities	posts_per_community	tags	followers_per_user	memberships_per_user	posts	posts_per_tag
+A	255	5	3	100	1000	50	500	100	10	15	100000	5000
+B	255	5	3	250	1000	100	1000	250	25	10	250000	5000
+C	255	5	3	500	1000	100	2500	500	50	25	500000	5000

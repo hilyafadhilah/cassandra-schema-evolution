@@ -1,0 +1,184 @@
+subcases:
+  A:
+    posts: 50_000
+    topics_per_post: 10
+    topics: 100
+  X:
+    posts: 50_000
+    topics_per_post: 10
+    topics: 50
+  Y:
+    posts: 50_000
+    topics_per_post: 50
+    topics: 100
+  B:
+    posts: 100_000
+    topics_per_post: 10
+    topics: 50
+  C:
+    posts: 100_000
+    topics_per_post: 50
+    topics: 100
+seed: 0xDEADBEEF
+
+cost:
+  cf1:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - { op: unload, c: 2, p: topics, r: 1 }
+    - op: load
+      c: 12
+      p: topics
+      r: posts_per_topic
+      agg:
+        - type: set
+          v: tags_per_post
+  cf2:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - { op: unload, c: 2, p: topics, r: 1 }
+    - op: load
+      c: 3
+      p: topics
+      r: posts_per_topic
+  cf3: 0
+  cf6:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - { op: unload, c: 2, p: topics, r: 1 }
+    - op: load
+      c: 12
+      p: topics
+      r: posts_per_topic
+      agg:
+        - type: set
+          v: tags_per_post
+  cf7:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - { op: unload, c: 2, p: topics, r: 1 }
+    - op: load
+      c: 3
+      p: topics
+      r: posts_per_topic
+  cf8:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - { op: unload, c: 2, p: topics, r: 1 }
+    - op: load
+      c: 3
+      p: posts
+      r: topics_per_post
+  cf9:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - { op: unload, c: 2, p: topics, r: 1 }
+    - op: load
+      c: 3
+      p: posts
+      r: topics_per_post
+  cf10:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - { op: unload, c: 2, p: topics, r: 1 }
+    - op: load
+      c: 0
+      p: posts
+      r: 1
+      agg:
+        - type: map
+          v: topics_per_post
+  cf11:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - { op: unload, c: 2, p: topics, r: 1 }
+    - op: load
+      c: 0
+      p: posts
+      r: 1
+      agg:
+        - type: set
+          v: topics_per_post
+  cf12: 0
+  cf13:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - { op: unload, c: 2, p: topics, r: 1 }
+    - op: load
+      c: 7
+      p: topics
+      r: posts_per_topic
+
+results:
+  qmin:
+    plans: { qeb08-1: 6, qeb08-2: 3 }
+    data:
+      cf2:
+        - { group: init, table: posts, op: unload }
+        - { group: init, table: topics, op: unload }
+        - { group: qmin, table: cf2, op: load }
+      cf11:
+        - { group: init, table: posts, op: unload }
+        - { group: init, table: topics, op: unload }
+        - { group: qmin, table: posts, op: load }
+  qbal:
+    plans: { qeb08-1: 1, qeb08-2: 2 }
+    data:
+      cf1:
+        - { group: init, table: posts, op: unload }
+        - { group: init, table: topics, op: unload }
+        - { group: qbal, table: cf1, op: load }
+      cf10:
+        - { group: init, table: posts, op: unload }
+        - { group: init, table: topics, op: unload }
+        - { group: qbal, table: posts, op: load }
+  codevo:
+    plans: { qeb08-1: 7, qeb08-2: 2 }
+    data:
+      cf13:
+        - { group: init, table: posts, op: unload }
+        - { group: init, table: topics, op: unload }
+        - { group: codevo, table: cf13, op: load }
+      cf9:
+        - { group: init, table: posts, op: unload }
+        - { group: init, table: topics, op: unload }
+        - { group: codevo, table: cf9, op: load }
+
+read:
+  tables:
+    cf1: { w: 13 }
+    cf2: { w: 3 }
+    cf3: { w: 11 }
+    cf4: { w: 12 }
+    cf5: { w: 2 }
+    cf6: { w: 13 }
+    cf7: { w: 3 }
+    cf8: { w: 3 }
+    cf9: { w: 3 }
+    cf10: { w: 12 }
+    cf11: { w: 12 }
+    cf12: { w: 12 }
+    cf13: { w: 7 }
+    P: { w: 11 }
+  queries:
+    qeb08-1:
+      f: 100
+      plans:
+        - cf1:
+        - cf2:
+          cf3: { n: 100 }
+        - cf2:
+          cf10: { n: 100 }
+        - cf6:
+          sort: [relevancy.score desc]
+        - cf7:
+          cf3: { n: 100 }
+          sort: [relevancy.score desc]
+        - cf7:
+          cf10: { n: 100 }
+          sort: [relevancy.score desc]
+        - cf13:
+          P: { n: 100 }
+          sort: [relevancy.score desc]
+    qeb08-2:
+      f: 50
+      plans:
+        - cf8:
+        - cf9:
+          sort: [relevancy.score desc]
+        - cf10:
+          sort: [relevancy.score desc]
+        - cf11:
+          cf12: { n_var: topics_per_post }
+          sort: [relevancy.score desc]

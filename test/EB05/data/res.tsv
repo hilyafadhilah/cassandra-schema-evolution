@@ -1,0 +1,7 @@
+subcase	key	qmin.p_plus	qmin	qbal.pa_plus	qbal.pc_plus	qbal.pt_plus	qbal
+A	cost	11,22	11,22	0,12	-2,02	14,24	12,34
+A	res	17,8s	17,8s	5,0s	2,0s	24,4s	31,4s
+B	cost	32,06	32,06	4,02	0,12	37,99	42,13
+B	res	36,2s	36,2s	12,4s	6,0s	56,6s	75,0s
+C	cost	66,78	66,78	10,50	4,56	77,57	92,63
+C	res	65,2s	65,2s	23,2s	14,6s	99,2s	137,0s

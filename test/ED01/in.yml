@@ -1,0 +1,49 @@
+subcases:
+  A:
+    users: 50_000
+  B:
+    users: 100_000
+  C:
+    users: 200_000
+  D:
+    users: 400_000
+  E:
+    users: 800_000
+seed: 0xDEADBEEF
+
+cost:
+  cf1:
+    - { op: unload, c: 7, p: users, r: 1 }
+    - { op: load, c: 8, p: users, r: 1 }
+  cf2: 0
+  cf3: 0
+  cf4:
+    - { op: unload, c: 7, p: users, r: 1 }
+    - { op: load, c: 1, p: users, r: 1 }
+
+results:
+  qmin:
+    plans: { q12: 2 }
+  qbal:
+    plans: { q12: 2 }
+  codevo:
+    plans: { q12: 1 }
+    data:
+      cf1:
+        - { group: init, table: users, op: unload }
+        - { group: codevo, table: cf1, op: load }
+
+read:
+  tables:
+    cf1: { w: 8 }
+    cf2: { w: 8 }
+    cf3: { w: 8 }
+    cf4: { w: 1 }
+  queries:
+    q12:
+      f: 5
+      plans:
+        - cf1:
+        - cf2:
+        - cf3:
+          cf4:

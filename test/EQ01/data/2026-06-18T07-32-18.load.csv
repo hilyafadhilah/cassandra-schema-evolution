@@ -1,0 +1,6 @@
+subcase,stage,table_name,time_s,mem_used_mb,mem_free_mb,mem_allocated_mb,mem_available_mb,gc_count,gc_time_ms,throughput_per_s,latency_mean_ms,latency_p75_ms,latency_p99_ms,latency_p999_ms
+C,qbal,pt,48,211,536,748,4012,60,961,48828,4.96,3.75,51.38,83.89
+C,qbal,pt,48,143,701,845,4012,53,926,49460,5.01,3.9,45.88,81.26
+C,qbal,pt,46,82,741,824,4012,58,951,51157,4.84,4.01,43.25,76.02
+C,qbal,pt,46,371,317,689,4012,61,910,50680,4.23,3.98,28.05,51.12
+C,qbal,pt,48,154,557,712,4012,58,1010,48714,5.51,4.42,53.22,104.86

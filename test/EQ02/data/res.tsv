@@ -1,0 +1,7 @@
+subcase	key	qbal.cf1	qbal.cf5	qbal.cf7	qbal.p	qbal
+A	cost	2,59	-1,47	24,03	1,45	25,15
+A	res	2,0s	1,0s	8,0s	3,4s	14,4s
+B	cost	9,88	2,59	60,09	3,55	72,57
+B	res	5,2s	2,0s	23,4s	8,6s	39,2s
+C	cost	21,49	10,04	118,23	7,05	149,76
+C	res	8,4s	5,4s	47,2s	13,0s	74,0s

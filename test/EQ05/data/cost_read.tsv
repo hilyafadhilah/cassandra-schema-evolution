@@ -1,0 +1,9 @@
+plan	step	n	T	Δ	∑C×f
+Q04					
+1	rplus	1	15,60	-	780,00
+2	R	1	14,59	-	29Nroot_comments_per_post + 1379,50
+	U	1	0,58Nroot_comments_per_post + 13,00	-	
+Q05					
+1	rplus	1	15,60	-	780,00
+2	R	1	14,59	-	29Nreplies_per_comment + 1379,50
+	U	1	0,58Nreplies_per_comment + 13,00	-	

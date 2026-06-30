@@ -1,0 +1,63 @@
+subcases:
+  A:
+    posts: 300
+    root_comments_per_post: 10
+    replies_per_comment: 2
+    reply_levels: 2
+  B:
+    posts: 300
+    root_comments_per_post: 50
+    replies_per_comment: 2
+    reply_levels: 2
+  C:
+    posts: 500
+    root_comments_per_post: 50
+    replies_per_comment: 2
+    reply_levels: 2
+  D:
+    posts: 500
+    root_comments_per_post: 50
+    replies_per_comment: 2
+    reply_levels: 3
+  E:
+    posts: 500
+    root_comments_per_post: 50
+    replies_per_comment: 4
+    reply_levels: 2
+seed: 0xDEADBEEF
+
+read:
+  tables:
+    R: { w: 9 }
+    U: { w: 8 } # intentional
+    rplus: { w: 10 }
+  queries:
+    q04:
+      f: 50
+      plans:
+        - rplus:
+        - R:
+          U: { n_var: root_comments_per_post }
+    q05:
+      f: 50
+      plans:
+        - rplus:
+        - R:
+          U: { n_var: replies_per_comment }
+
+cost:
+  rplus:
+    - { op: unload, c: 9, p: posts, r: comments_per_post }
+    - { op: load, c: 1, p: posts, r: comments_per_post }
+
+results:
+  qmin:
+    plans: { q04: 2, q05: 2 }
+  qbal:
+    plans: { q04: 1, q05: 1 }
+    data:
+      rplus:
+        - { group: init, table: comments, op: unload }
+        - { group: qbal, table: comments, op: load }
+  codevo:
+    plans: { q04: 2, q05: 2 }

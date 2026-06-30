@@ -1,0 +1,100 @@
+subcases:
+  A:
+    users: 50_000
+    bookmarks_per_user: 10
+  B:
+    users: 100_000
+    bookmarks_per_user: 10
+  C:
+    users: 100_000
+    bookmarks_per_user: 25
+  D:
+    users: 300_000
+    bookmarks_per_user: 10
+  E:
+    users: 300_000
+    bookmarks_per_user: 25
+seed: 0xDEADBEEF
+
+cost:
+  cf1:
+    - { op: unload, c: 7, p: users, r: 1 }
+    - { op: unload, c: 3, p: total_bookmarks, r: 1 }
+    - op: load
+      c: 4
+      p: users
+      r: bookmarks_per_user
+  cf2:
+    - { op: unload, c: 7, p: users, r: 1 }
+    - { op: unload, c: 3, p: total_bookmarks, r: 1 }
+    - op: load
+      c: 4
+      p: users
+      r: bookmarks_per_user
+  cf3:
+    - { op: unload, c: 7, p: users, r: 1 }
+    - { op: unload, c: 3, p: total_bookmarks, r: 1 }
+    - op: load
+      c: 0
+      p: users
+      r: 1
+      agg:
+        - type: map
+          v: bookmarks_per_user
+  cf4:
+    - { op: unload, c: 7, p: users, r: 1 }
+    - { op: unload, c: 3, p: total_bookmarks, r: 1 }
+    - op: load
+      c: 0
+      p: users
+      r: 1
+      agg:
+        - type: set
+          v: bookmarks_per_user
+  cf5: 0
+
+results:
+  qmin_set:
+    plans: { qeb07: 4 }
+    data:
+      cf4:
+        - { group: init, table: users, op: unload }
+        - { group: qmin_set, table: users, op: load }
+  qmin_map:
+    plans: { qeb07: 3 }
+    data:
+      cf3:
+        - { group: init, table: users, op: unload }
+        - { group: qmin_map, table: users, op: load }
+  codevo:
+    plans: { qeb07: 2 }
+    data:
+      cf2:
+        - { group: init, table: users, op: unload }
+        - { group: codevo, table: cf2, op: load }
+  qbal:
+    plans: { qeb07: 1 }
+    data:
+      cf1:
+        - { group: init, table: users, op: unload }
+        - { group: qbal, table: cf1, op: load }
+
+read:
+  tables:
+    cf1: { w: 4 }
+    cf2: { w: 4 }
+    cf3: { w: 8 }
+    cf4: { w: 8 }
+    cf5: { w: 3 }
+  queries:
+    qeb07:
+      f: 5
+      plans:
+        - cf1:
+        - cf2:
+          sort: [bookmark.updatedAt desc]
+        - cf3:
+          sort: [bookmark.updatedAt desc]
+        - cf4:
+          cf5: { n_var: bookmarks_per_user }
+          sort: [bookmark.updatedAt desc]

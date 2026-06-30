@@ -1,0 +1,226 @@
+subcases:
+  A:
+    users: 10_000
+    communities: 100
+    members_per_community: 1000
+    roles_per_community: 5
+    roles_per_member: 3
+  B:
+    users: 25_000
+    communities: 200
+    members_per_community: 1000
+    roles_per_community: 5
+    roles_per_member: 3
+  C:
+    users: 25_000
+    communities: 250
+    members_per_community: 2000
+    roles_per_community: 10
+    roles_per_member: 5
+seed: 0xDEADBEEF
+
+cost:
+  cf1:
+    - { op: unload, c: 6, p: users, r: memberships_per_user }
+    - op: load
+      c: 8
+      p: users
+      r: total_roles_per_user
+  cf2:
+    - { op: unload, c: 6, p: users, r: memberships_per_user }
+    - op: load
+      c: 0
+      p: users
+      r: memberships_per_user
+      agg:
+        - type: map
+          v: roles_per_member
+  cf3:
+    - { op: unload, c: 6, p: users, r: memberships_per_user }
+    - op: load
+      c: 0
+      p: users
+      r: memberships_per_user
+      agg:
+        - type: set
+          v: roles_per_member
+  cf4:
+    - { op: unload, c: 4, p: communities, r: 1 }
+    - op: load
+      c: 3
+      p: communities
+      r: roles_per_community
+  cf5:
+    - { op: unload, c: 4, p: communities, r: 1 }
+    - op: load
+      c: 0
+      p: communities
+      r: 1
+      agg:
+        - type: map
+          v: roles_per_community
+  cf6: 0
+  cf7:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 4
+      p: communities
+      r: total_community_member_roles
+  cf8:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 1
+      p: communities
+      r: members_per_community
+      agg:
+        - type: map
+          v: roles_per_member
+  cf9:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 1
+      p: communities
+      r: members_per_community
+      agg:
+        - type: set
+          v: roles_per_member
+  cf10:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 7
+      p: communities
+      r: total_community_member_roles
+  cf11:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 0
+      p: communities
+      r: members_per_community
+      agg:
+        - type: map
+          v: roles_per_member
+  cf12:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 0
+      p: communities
+      r: members_per_community
+      agg:
+        - type: set
+          v: roles_per_member
+  cf13: 0
+  cf14:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - op: load
+      c: 5
+      p: communities
+      r: total_community_member_roles
+
+results:
+  qmin:
+    plans: { q09: 3, q10: 7, q11: 7 }
+    data:
+      cf3:
+        - { group: init, table: user_memberships, op: unload }
+        - { group: qmin, table: user_memberships, op: load }
+      # cf8:
+      #   - { group: init, table: community_members, op: unload }
+      #   - { group: qmin, table: community_members, op: load }
+      cf4:
+        - { group: init, table: communities, op: unload }
+        - { group: qmin, table: cf4, op: load }
+  qbal:
+    plans: { q09: 2, q10: 2, q11: 2 }
+    data:
+      cf2:
+        - { group: init, table: user_memberships, op: unload }
+        - { group: qbal, table: user_memberships, op: load }
+      cf11:
+        - { group: init, table: community_members, op: unload }
+        - { group: qbal, table: community_members, op: load }
+  codevo:
+    plans: { q09: 5, q10: 8, q11: 8 }
+    data:
+      cf5:
+        - { group: init, table: communities, op: unload }
+        - { group: codevo, table: communities, op: load }
+      cf14:
+        - { group: init, table: community_members, op: unload }
+        - { group: codevo, table: cf9, op: load }
+
+read:
+  tables:
+    cf1: { w: 8 }
+    cf2: { w: 6 }
+    cf3: { w: 6 }
+    cf4: { w: 3 }
+    cf5: { w: 5 }
+    cf6: { w: 6 }
+    cf7: { w: 4 }
+    cf8: { w: 2 }
+    cf9: { w: 2 }
+    cf10: { w: 7 }
+    cf11: { w: 6 }
+    cf12: { w: 6 }
+    cf13: { w: 5 }
+    cf14: { w: 5 }
+    Mu: { w: 6 }
+    Mc: { w: 5 }
+  queries:
+    q09:
+      f: 50
+      plans:
+        - cf1:
+        - cf2:
+        - cf3:
+          cf4: { n_var: roles_per_member }
+        - cf3:
+          cf5: { n_var: roles_per_member }
+        - Mu:
+          cf14: { n_var: memberships_per_user }
+          cf5: { n_var: memberships_per_user }
+    q10:
+      f: 50
+      plans:
+        - cf10:
+        - cf11:
+        - cf12:
+          cf4: { n_var: roles_per_member }
+        - cf12:
+          cf5: { n_var: roles_per_member }
+        - Mc:
+          cf7: { n_var: members_per_community }
+        - Mc:
+          cf2: { n_var: members_per_community }
+        - Mc:
+          cf3: { n_var: members_per_community }
+          cf5:
+        - cf14:
+          cf5:
+          sort: [role.rank desc, membership.joinedAt desc]
+    q11:
+      f: 50
+      plans:
+        - cf10:
+        - cf11:
+          filter: [role.rank = r]
+        - cf12:
+          cf4: { n_var: roles_per_member }
+          filter: [role.rank = r]
+        - cf12:
+          cf5: { n_var: roles_per_member }
+          filter: [role.rank = r]
+        - Mc:
+          cf7: { n_var: members_per_community }
+          filter: [role.rank = r]
+        - Mc:
+          cf2: { n_var: members_per_community }
+          filter: [role.rank = r]
+        - Mc:
+          cf3: { n_var: members_per_community }
+          cf5:
+          filter: [role.rank = r]
+        - cf14:
+          cf5:
+          filter: [role.rank = r]
+          sort: [membership.joinedAt desc]

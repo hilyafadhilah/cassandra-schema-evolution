@@ -1,0 +1,6 @@
+subcase	seed	users	posts	root_comments_per_post	replies_per_comment	reply_levels	comments_per_post	total_comments
+A	255	100000	300	10	2	2	70	21000
+B	255	100000	300	50	2	2	350	105000
+C	255	100000	500	50	2	2	350	175000
+D	255	100000	500	50	2	3	750	375000
+E	255	100000	500	50	4	2	1050	525000

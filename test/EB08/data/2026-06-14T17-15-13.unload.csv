@@ -1,0 +1,6 @@
+subcase,stage,table_name,time_s,mem_used_mb,mem_free_mb,mem_allocated_mb,mem_available_mb,gc_count,gc_time_ms,throughput_per_s,latency_mean_ms,latency_p75_ms,latency_p99_ms,latency_p999_ms
+A,init,posts,2,28,305,334,4012,11,102,9474,29.69,40.63,102.76,102.76
+A,init,posts,3,27,380,408,4012,9,103,8612,91.21,116.39,143.65,143.65
+A,init,posts,3,27,364,392,4012,10,77,8358,98.31,130.02,186.65,186.65
+A,init,posts,3,28,378,407,4012,11,100,8563,96.29,123.21,205.52,205.52
+A,init,posts,3,27,379,407,4012,11,91,8726,88.82,108.53,170.92,170.92

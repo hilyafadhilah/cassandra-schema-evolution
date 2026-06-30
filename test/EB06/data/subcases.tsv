@@ -1,0 +1,6 @@
+subcase	seed	users	tags_per_post
+A	255	50000	5
+B	255	100000	5
+C	255	200000	5
+D	255	400000	5
+E	255	800000	5

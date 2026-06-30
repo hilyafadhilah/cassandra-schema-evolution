@@ -1,0 +1,158 @@
+subcases:
+  A:
+    users: 100
+    posts_per_user: 1000
+    communities: 50
+    posts_per_community: 500
+    tags: 100
+    tags_per_post: 5
+
+    # read
+    followers_per_user: 10
+    memberships_per_user: 15
+  B:
+    users: 250
+    posts_per_user: 1000
+    communities: 100
+    posts_per_community: 1000
+    tags: 250
+    tags_per_post: 5
+
+    # read
+    followers_per_user: 25
+    memberships_per_user: 10
+  C:
+    users: 500
+    posts_per_user: 1000
+    communities: 100
+    posts_per_community: 2500
+    tags: 500
+    tags_per_post: 5
+
+    # read
+    followers_per_user: 50
+    memberships_per_user: 25
+seed: 0xDEADBEEF
+
+cost:
+  cf1:
+    - { op: unload, c: 10, p: users, r: posts_per_user }
+    - op: load
+      c: 10
+      p: users
+      r: posts_per_user
+      agg:
+        - type: set
+          v: tags_per_post
+  cf8:
+    - { op: unload, c: 10, p: communities, r: posts_per_community }
+    - op: load
+      c: 9
+      p: communities
+      r: posts_per_community
+      agg:
+        - type: set
+          v: tags_per_post
+  cf14:
+    - { op: unload, c: 11, p: tags, r: posts_per_tag }
+    - op: load
+      c: 10
+      p: tags
+      r: posts_per_tag
+      agg:
+        - type: set
+          v: tags_per_post
+  cf20:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - op: load
+      c: 9
+      p: posts
+      r: 1
+      agg:
+        - type: set
+          v: tags_per_post
+        - type: map
+          v: embeds_per_post
+
+results:
+  qmin:
+    plans: { q01: 1, q02: 1, q03: 1, q13: 1 }
+  qbal:
+    plans: { q01: 1, q02: 1, q03: 1, q13: 1 }
+  codevo:
+    plans: { q01: 3, q02: 3, q03: 3, q13: 3 }
+    data:
+      cf1:
+        - { group: init, table: pa, op: unload }
+        - { group: codevo, table: cf1, op: load }
+      cf8:
+        - { group: init, table: pc, op: unload }
+        - { group: codevo, table: cf8, op: load }
+      cf14:
+        - { group: init, table: pt, op: unload }
+        - { group: codevo, table: cf14, op: load }
+      cf20:
+        - { group: init, table: p, op: unload }
+        - { group: codevo, table: cf20, op: load }
+
+read:
+  tables:
+    cf1: { w: 11 }
+    cf2: { w: 12 }
+    cf3: { w: 12 }
+    cf4: { w: 7 }
+    cf5: { w: 11 }
+    cf6: { w: 11 }
+    cf7: { w: 9 }
+    cf8: { w: 10 }
+    cf9: { w: 11 }
+    cf10: { w: 9 }
+    cf11: { w: 10 }
+    cf12: { w: 10 }
+    cf13: { w: 8 }
+    cf14: { w: 11 }
+    cf15: { w: 12 }
+    cf16: { w: 10 }
+    cf17: { w: 11 }
+    cf18: { w: 11 }
+    cf19: { w: 9 }
+    cf20: { w: 11 }
+    cf21: { w: 12 }
+    cf22: { w: 10 }
+    F: { w: 6 }
+    Mu: { w: 6 }
+  queries:
+    q01:
+      f: 100
+      plans:
+        - F:
+          cf2: { n_var: followers_per_user }
+        - F:
+          cf3: { n_var: followers_per_user }
+          cf4: { n: 100, n_var: followers_per_user }
+        - F:
+          cf1: { n_var: followers_per_user }
+    q02:
+      f: 100
+      plans:
+        - Mu:
+          cf9: { n_var: memberships_per_user }
+        - Mu:
+          cf10: { n_var: memberships_per_user }
+          cf4: { n: 100, n_var: memberships_per_user }
+        - Mu:
+          cf8: { n_var: memberships_per_user }
+    q03:
+      f: 100
+      plans:
+        - cf15:
+        - cf16:
+          cf4: { n: 100 }
+        - cf14:
+    q13:
+      f: 5
+      plans:
+        - cf21:
+        - cf22:
+          cf4:
+        - cf20:

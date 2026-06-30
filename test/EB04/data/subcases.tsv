@@ -1,0 +1,6 @@
+subcase	seed	posts	tags_per_post	embeds_per_post	entries_per_post
+A	255	50000	5	3	10
+B	255	100000	5	3	10
+C	255	100000	5	3	50
+D	255	250000	5	3	10
+E	255	250000	5	3	50

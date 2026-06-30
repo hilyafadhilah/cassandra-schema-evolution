@@ -1,0 +1,7 @@
+subcase	key	qbal.cf1	qbal
+A	cost	1,40	1,40
+A	res	3,0s	3,0s
+B	cost	4,00	4,00
+B	res	5,0s	5,0s
+C	cost	13,17	13,17
+C	res	11,6s	11,6s

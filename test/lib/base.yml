@@ -1,0 +1,90 @@
+tables:
+  Pa: { w: 10, p: users, r: posts_per_user }
+  Pc: { w: 10, p: communities, r: posts_per_community }
+  Pt: { w: 11, p: tags, r: posts_per_tag }
+  R: { w: 9, p: posts, r: comments_per_post }
+  Ip: { w: 8, p: posts, r: interactions_per_post }
+  Iu: { w: 11, p: users, r: interactions_per_user }
+  F: { w: 6, p: users, r: followers_per_user }
+  Mu: { w: 6, p: users, r: memberships_per_user }
+  Mc: { w: 5, p: communities, r: memberships_per_community }
+  U: { w: 7, p: users, r: 1 }
+  P: { w: 11, p: posts, r: 1 }
+  C: { w: 5, p: communities, r: 1 }
+  L: { w: 3, p: comments, r: likes_per_comment }
+
+queries:
+  q01:
+    f: 100
+    plan:
+      F:
+      Pa: { n_var: followers_per_user }
+  q02:
+    f: 100
+    plan:
+      Mu:
+      Pc: { n_var: memberships_per_user }
+  q03:
+    f: 100
+    plan:
+      Pt:
+  q04:
+    f: 50
+    plan:
+      R:
+      sort: [comment.likesCount desc]
+  q05:
+    f: 50
+    plan:
+      R:
+  q06:
+    f: 100
+    plan:
+      Ip:
+  q07:
+    f: 100
+    plan:
+      Iu:
+  q08:
+    f: 50
+    plan:
+      F:
+  q09:
+    f: 50
+    plan:
+      Mu:
+  q10:
+    f: 50
+    plan:
+      Mc:
+      sort: [membership.joinedAt desc]
+  q11:
+    f: 50
+    plan:
+      Mc:
+  q12:
+    f: 5
+    plan:
+      U:
+  q13:
+    f: 5
+    plan:
+      P:
+  q14:
+    f: 5
+    plan:
+      C:
+  q15:
+    f: 5
+    plan:
+      L:
+
+aliases:
+  followers_per_user:
+    long: followers per user
+    mid: foll/user
+    short: f/u
+  memberships_per_user:
+    long: memberships per user
+    mid: memb/user
+    short: m/u

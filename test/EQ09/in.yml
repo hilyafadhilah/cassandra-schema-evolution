@@ -1,0 +1,44 @@
+subcases:
+  A:
+    users: 10_000
+    communities: 100
+    members_per_community: 1000
+  B:
+    users: 25_000
+    communities: 200
+    members_per_community: 1000
+  C:
+    users: 25_000
+    communities: 250
+    members_per_community: 2000
+seed: 0xDEADBEEF
+
+cost:
+  cf1:
+    - { op: unload, c: 5, p: communities, r: members_per_community }
+    - { op: load, c: 5, p: communities, r: members_per_community }
+  Mc: 0
+
+results:
+  qmin:
+    plans: { q10: 2 }
+  qbal:
+    plans: { q10: 1 }
+    data:
+      cf1:
+        - { group: init, table: user_memberships, op: unload }
+        - { group: qbal, table: cf1, op: load }
+  codevo:
+    plans: { q10: 2 }
+
+read:
+  tables:
+    cf1: { w: 6 }
+    Mc: { w: 6 }
+  queries:
+    q10:
+      f: 50
+      plans:
+        - cf1:
+        - Mc:
+          sort: [membership.role asc]

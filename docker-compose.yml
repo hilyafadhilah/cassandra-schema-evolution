@@ -1,0 +1,60 @@
+services:
+  scylla1:
+    image: scylladb/scylla:latest
+    ports:
+      - "9042:9042"
+    container_name: scylla1
+    command: --smp 1 --memory 1G --overprovisioned 1 --developer-mode 1 --rack rack1 --dc datacenter1 --auto-snapshot 0
+    volumes:
+      - scylla1_data:/var/lib/scylla
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  scylla2:
+    image: scylladb/scylla:latest
+    ports:
+      - "9043:9042"
+    container_name: scylla2
+    command: --seeds scylla1 --smp 1 --memory 1G --overprovisioned 1 --developer-mode 1 --rack rack2 --dc datacenter1 --auto-snapshot 0
+    volumes:
+      - scylla2_data:/var/lib/scylla
+    depends_on:
+      scylla1:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  scylla3:
+    image: scylladb/scylla:latest
+    ports:
+      - "9044:9042"
+    container_name: scylla3
+    command: --seeds scylla1 --smp 1 --memory 1G --overprovisioned 1 --developer-mode 1 --rack rack3 --dc datacenter1 --auto-snapshot 0
+    volumes:
+      - scylla3_data:/var/lib/scylla
+    depends_on:
+      scylla1:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+networks:
+  default:
+    name: ta
+
+volumes:
+  scylla1_data:
+  scylla2_data:
+  scylla3_data:

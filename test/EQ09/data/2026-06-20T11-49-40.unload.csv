@@ -1,0 +1,16 @@
+subcase,stage,table_name,time_s,mem_used_mb,mem_free_mb,mem_allocated_mb,mem_available_mb,gc_count,gc_time_ms,throughput_per_s,latency_mean_ms,latency_p75_ms,latency_p99_ms,latency_p999_ms
+A,init,community_members,1,130,249,380,4012,7,73,26583,17.91,20.71,33.82,34.08
+A,init,community_members,1,85,275,361,4012,7,76,26387,18.38,20.32,53.48,53.48
+A,init,community_members,1,204,180,385,4012,8,92,25139,16.58,19.4,38.54,38.54
+A,init,community_members,1,159,211,371,4012,8,95,25456,26.64,24.64,147.85,147.85
+A,init,community_members,1,185,139,325,4012,7,72,25534,14.88,17.96,22.02,23.59
+B,init,community_members,2,54,257,312,4012,9,80,44699,20.75,22.02,76.55,76.55
+B,init,community_members,2,89,373,463,4012,10,98,45592,22.46,27.66,45.88,45.88
+B,init,community_members,2,88,269,358,4012,10,84,45989,21.09,21.76,73.4,73.4
+B,init,community_members,1,29,349,379,4012,10,96,47734,19.91,23.86,51.12,51.12
+B,init,community_members,2,100,238,339,4012,10,77,45104,18.07,20.19,37.22,74.97
+C,init,community_members,3,34,463,498,4012,15,171,86143,21.65,24.12,50.33,95.42
+C,init,community_members,3,38,444,483,4012,14,132,89263,21.27,22.41,67.63,78.64
+C,init,community_members,3,25,407,433,4012,13,112,90498,21.92,23.59,94.37,98.04
+C,init,community_members,3,29,522,552,4012,13,148,89054,20.97,23.33,55.84,69.73
+C,init,community_members,3,97,431,529,4012,13,175,91190,21.57,23.72,79.69,94.9

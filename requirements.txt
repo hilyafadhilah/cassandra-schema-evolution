@@ -1,0 +1,10 @@
+cassandra-driver
+numpy
+faker
+matplotlib
+pyyaml
+pydantic
+inflect
+pandas
+scipy
+statsmodels

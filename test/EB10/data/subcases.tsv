@@ -1,0 +1,4 @@
+subcase	seed	users	communities	members_per_community	roles_per_community	roles_per_member	memberships_per_user	total_roles_per_user	total_community_member_roles	total_memberships
+A	255	10000	100	1000	5	3	10	30	5000	100000
+B	255	25000	200	1000	5	3	8	24	5000	200000
+C	255	25000	250	2000	10	5	20	100	20000	500000

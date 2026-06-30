@@ -1,0 +1,13 @@
+plan	step	n	T	Δ	∑C×f
+Q09					
+1	CF1	1	12,57	-	628,50
+2	CF2	1	9,54	-	25,50Nm/u + 777,00
+	C	1	0,51Nmemb/user + 6,00	-	
+Q10					
+1	CF10	1	11,56	-	578,00
+2	CF11	1	9,54	-	25,50Nmembers_per_community + 777,00
+	U	1	0,51Nmembers_per_community + 6,00	-	
+Q11					
+1	CF10	1	11,56	-	578,00
+2	CF11	1	9,54	-	25,50Nmembers_per_community + 777,00
+	U	1	0,51Nmembers_per_community + 6,00	-	

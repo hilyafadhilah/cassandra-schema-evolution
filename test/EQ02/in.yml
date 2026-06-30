@@ -1,0 +1,130 @@
+subcases:
+  A:
+    users: 100
+    posts_per_user: 1000
+    communities: 50
+    posts_per_community: 500
+    tags: 100
+    tags_per_post: 5
+
+    # read
+    followers_per_user: 10
+    memberships_per_user: 15
+  B:
+    users: 250
+    posts_per_user: 1000
+    communities: 100
+    posts_per_community: 1000
+    tags: 250
+    tags_per_post: 5
+
+    # read
+    followers_per_user: 25
+    memberships_per_user: 10
+  C:
+    users: 500
+    posts_per_user: 1000
+    communities: 100
+    posts_per_community: 2500
+    tags: 500
+    tags_per_post: 5
+
+    # read
+    followers_per_user: 50
+    memberships_per_user: 25
+seed: 0xDEADBEEF
+
+cost:
+  cf1:
+    - { op: unload, c: 10, p: users, r: posts_per_user }
+    - op: load
+      c: 0
+      p: users
+      r: posts_per_user
+      agg:
+        - type: map
+          v: embeds_per_post
+  cf2: 0
+  cf3: 0
+  cf4:
+    - { op: unload, c: 10, p: posts, r: 1 }
+    - { op: load, c: 10, p: posts, r: embeds_per_post }
+  cf5:
+    - { op: unload, c: 10, p: communities, r: posts_per_community }
+    - op: load
+      c: 0
+      p: communities
+      r: posts_per_community
+      agg:
+        - type: map
+          v: embeds_per_post
+  cf6: 0
+  cf7:
+    - { op: unload, c: 11, p: tags, r: posts_per_tag }
+    - op: load
+      c: 0
+      p: tags
+      r: posts_per_tag
+      agg:
+        - type: map
+          v: embeds_per_post
+  cf8: 0
+  p:
+    - { op: unload, c: 11, p: posts, r: 1 }
+
+read:
+  tables:
+    cf1: { w: 11 }
+    cf2: { w: 10 }
+    cf3: { w: 11 }
+    cf4: { w: 3 }
+    cf5: { w: 11 }
+    cf6: { w: 10 }
+    cf7: { w: 12 }
+    cf8: { w: 11 }
+    p: { w: 10 }
+    F: { w: 6 }
+    Mu: { w: 6 }
+  queries:
+    q01:
+      f: 100
+      plans:
+        - F:
+          cf1: { n_var: followers_per_user }
+        - F:
+          cf2: { n_var: followers_per_user }
+          cf3: { n_var: followers_per_user, n: 100 }
+    q02:
+      f: 100
+      plans:
+        - Mu:
+          cf5: { n_var: memberships_per_user }
+        - Mu:
+          cf6: { n_var: memberships_per_user }
+          cf3: { n_var: memberships_per_user, n: 100 }
+    q03:
+      f: 100
+      plans:
+        - cf7:
+        - cf8:
+          cf3: { n: 100 }
+
+results:
+  qmin:
+    plans: { q01: 2, q02: 2, q03: 2 }
+  qbal:
+    plans: { q01: 1, q02: 1, q03: 1 }
+    data:
+      cf1:
+        - { group: init, table: pa, op: unload }
+        - { group: qbal, table: cf1, op: load }
+      cf5:
+        - { group: init, table: pc, op: unload }
+        - { group: qbal, table: cf5, op: load }
+      cf7:
+        - { group: init, table: pt, op: unload }
+        - { group: qbal, table: cf7, op: load }
+      p:
+        - { group: init, table: p, op: unload }
+  codevo:
+    plans: { q01: 2, q02: 2, q03: 2 }

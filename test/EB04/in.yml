@@ -1,0 +1,67 @@
+subcases:
+  A:
+    posts: 50_000
+    entries_per_post: 10
+  B:
+    posts: 100_000
+    entries_per_post: 10
+  C:
+    posts: 100_000
+    entries_per_post: 50
+  D:
+    posts: 250_000
+    entries_per_post: 10
+  E:
+    posts: 250_000
+    entries_per_post: 50
+seed: 0xDEADBEEF
+
+cost:
+  cf1:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - op: load
+      c: 4
+      p: posts
+      r: entries_per_post
+      agg:
+        - type: set
+          v: tags_per_post
+        - type: map
+          v: embeds_per_post
+  cf2:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - op: load
+      c: 4
+      p: posts
+      r: entries_per_post
+      agg:
+        - type: set
+          v: tags_per_post
+        - type: map
+          v: embeds_per_post
+  cf3:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - op: load
+      c: 0
+      p: posts
+      r: 1
+      agg:
+        - type: set
+          v: entries_per_post
+        - type: map
+          v: tags_per_post
+
+read:
+  tables:
+    cf1: { w: 4 }
+    cf2: { w: 4 }
+    cf3: { w: 12 }
+  queries:
+    qeb03:
+      f: 5
+      plans:
+        - cf1:
+        - cf2:
+          sort: [entry.timestamp desc]
+        - cf3:
+          sort: [entry.timestamp desc]

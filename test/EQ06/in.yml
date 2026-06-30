@@ -1,0 +1,46 @@
+subcases:
+  A:
+    users: 1000
+    interactions_per_user: 500
+    interaction_types: 2
+  B:
+    users: 1000
+    interactions_per_user: 1000
+    interaction_types: 3
+  C:
+    users: 1000
+    interactions_per_user: 1000
+    interaction_types: 3
+  D:
+    users: 1000
+    interactions_per_user: 2000
+    interaction_types: 5
+  E:
+    users: 1000
+    interactions_per_user: 3000
+    interaction_types: 7
+seed: 0xDEADBEEF
+
+read:
+  tables:
+    cf1: { w: 12 }
+    cf2: { w: 3 }
+    P: { w: 11 }
+    Iu: { w: 11 }
+  queries:
+    q07:
+      f: 100
+      plans:
+        - cf1:
+        - cf2:
+          P: { n_var: interactions_per_user }
+        - Iu: { n_var: interaction_types }
+
+cost:
+  cf1:
+    - { op: unload, c: 11, p: users, r: interactions_per_user }
+    - { op: load, c: 12, p: users, r: interactions_per_user }
+  cf2:
+    - { op: unload, c: 11, p: users, r: interactions_per_user }
+    - { op: load, c: 3, p: users, r: interactions_per_user }
+  cf3: 0

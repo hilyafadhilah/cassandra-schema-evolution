@@ -1,0 +1,172 @@
+subcases:
+  A:
+    users: 100
+    posts_per_user: 1000
+    communities: 50
+    posts_per_community: 500
+    tags: 100
+    tags_per_post: 5
+
+    # read
+    followers_per_user: 10
+    memberships_per_user: 15
+  B:
+    users: 250
+    posts_per_user: 1000
+    communities: 100
+    posts_per_community: 1000
+    tags: 250
+    tags_per_post: 5
+
+    # read
+    followers_per_user: 25
+    memberships_per_user: 10
+  C:
+    users: 500
+    posts_per_user: 1000
+    communities: 100
+    posts_per_community: 2500
+    tags: 500
+    tags_per_post: 5
+
+    # read
+    followers_per_user: 50
+    memberships_per_user: 25
+
+cost:
+  p: 0
+  p_plus:
+    - { op: unload, c: 11, p: posts, r: 1 }
+    - { op: load, c: 1, p: posts, r: 1 }
+  # Q01
+  cf1:
+    - { op: unload, c: 10, p: users, r: posts_per_user }
+    - op: load
+      c: 10
+      p: users
+      r: posts_per_user
+      agg:
+        - type: set
+          v: tags_per_post
+  cf2:
+    - { op: unload, c: 10, p: users, r: posts_per_user }
+    - { op: load, c: 2, p: users, r: posts_per_user }
+  pa_plus:
+    - { op: unload, c: 10, p: users, r: posts_per_user }
+    - { op: load, c: 1, p: users, r: posts_per_user }
+  cf5: 0
+  # Q02
+  cf7:
+    - { op: unload, c: 10, p: communities, r: posts_per_community }
+    - op: load
+      c: 9
+      p: communities
+      r: posts_per_community
+      agg:
+        - type: set
+          v: tags_per_post
+  cf8:
+    - { op: unload, c: 10, p: communities, r: posts_per_community }
+    - { op: load, c: 2, p: communities, r: posts_per_community }
+  pc_plus:
+    - { op: unload, c: 10, p: communities, r: posts_per_community }
+    - { op: load, c: 1, p: communities, r: posts_per_community }
+  cf11: 0
+  # Q03
+  cf13:
+    - { op: unload, c: 11, p: tags, r: posts_per_tag }
+    - op: load
+      c: 10
+      p: tags
+      r: posts_per_tag
+      agg:
+        - type: set
+          v: tags_per_post
+  cf14:
+    - { op: unload, c: 11, p: tags, r: posts_per_tag }
+    - { op: load, c: 2, p: tags, r: posts_per_tag }
+  pt_plus:
+    - { op: unload, c: 11, p: tags, r: posts_per_tag }
+    - { op: load, c: 1, p: tags, r: posts_per_tag }
+  cf17: 0
+
+results:
+  qmin:
+    plans: { q01: 4, q02: 4, q03: 4 }
+    data:
+      p_plus:
+        - { group: init, table: p_plus, op: unload }
+        - { group: qmin, table: p_plus, op: load }
+  qbal:
+    plans: { q01: 3, q02: 3, q03: 3 }
+    data:
+      pa_plus:
+        - { group: init, table: pa_plus, op: unload }
+        - { group: qbal, table: pa_plus, op: load }
+      pc_plus:
+        - { group: init, table: pc_plus, op: unload }
+        - { group: qbal, table: pc_plus, op: load }
+      pt_plus:
+        - { group: init, table: pt_plus, op: unload }
+        - { group: qbal, table: pt_plus, op: load }
+
+read:
+  tables:
+    p: { w: 11 }
+    p_plus: { w: 12 }
+    cf1: { w: 10 }
+    cf2: { w: 2 }
+    pa_plus: { w: 11 }
+    cf5: { w: 2 }
+    cf7: { w: 10 }
+    cf8: { w: 3 }
+    pc_plus: { w: 11 }
+    cf11: { w: 2 }
+    cf13: { w: 12 }
+    cf14: { w: 2 }
+    pt_plus: { w: 12 }
+    cf17: { w: 2 }
+    F: { w: 6 }
+    Mu: { w: 6 }
+  queries:
+    q01:
+      f: 100
+      plans:
+        - F:
+          cf1: { n_var: followers_per_user }
+        - F:
+          cf2: { n_var: followers_per_user }
+          p: { n: 100, n_var: followers_per_user }
+        - F:
+          pa_plus: { n_var: followers_per_user }
+          filter: [post.status = s]
+        - F:
+          cf5: { n_var: followers_per_user }
+          p_plus: { n: 100, n_var: followers_per_user }
+          filter: [post.status = s]
+    q02:
+      f: 100
+      plans:
+        - Mu:
+          cf7: { n_var: memberships_per_user }
+        - Mu:
+          cf8: { n_var: memberships_per_user }
+          p: { n: 100, n_var: memberships_per_user }
+        - Mu:
+          pc_plus: { n_var: memberships_per_user }
+          filter: [post.status = s]
+        - Mu:
+          cf11: { n_var: memberships_per_user }
+          p_plus: { n: 100, n_var: memberships_per_user }
+          filter: [post.status = s]
+    q03:
+      f: 100
+      plans:
+        - cf13:
+        - cf14:
+          p: { n: 100 }
+        - pt_plus:
+          filter: [post.status = s]
+        - cf17:
+          p_plus: { n: 100 }
+          filter: [post.status = s]

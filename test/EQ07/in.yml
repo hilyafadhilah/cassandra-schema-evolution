@@ -1,0 +1,44 @@
+subcases:
+  A:
+    posts: 300
+    root_comments_per_post: 10
+    replies_per_comment: 2
+    reply_levels: 2
+  B:
+    posts: 300
+    root_comments_per_post: 50
+    replies_per_comment: 2
+    reply_levels: 2
+  C:
+    posts: 500
+    root_comments_per_post: 50
+    replies_per_comment: 2
+    reply_levels: 2
+  D:
+    posts: 500
+    root_comments_per_post: 50
+    replies_per_comment: 2
+    reply_levels: 3
+  E:
+    posts: 500
+    root_comments_per_post: 50
+    replies_per_comment: 4
+    reply_levels: 2
+seed: 0xDEADBEEF
+
+read:
+  tables:
+    cf1: { w: 8 }
+    cf2: { w: 9 }
+  queries:
+    q04:
+      f: 50
+      plans:
+        - cf1:
+        - cf2:
+          sort: [comment.likesCount desc]
+
+cost:
+  cf1:
+    - { op: unload, c: 9, p: posts, r: comments_per_post }
+    - { op: load, c: 8, p: posts, r: comments_per_post }

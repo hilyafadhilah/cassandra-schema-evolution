@@ -1,0 +1,79 @@
+subcases:
+  A:
+    communities: 5000
+    owners_per_community: 5
+  B:
+    communities: 5000
+    owners_per_community: 10
+  C:
+    communities: 10000
+    owners_per_community: 10
+  D:
+    communities: 10000
+    owners_per_community: 25
+  E:
+    communities: 25000
+    owners_per_community: 10
+seed: 0xDEADBEEF
+
+cost:
+  cf1:
+    - { op: unload, c: 4, p: communities, r: 1 }
+    - { op: load, c: 8, p: communities, r: owners_per_community }
+  cf2:
+    - { op: unload, c: 4, p: communities, r: 1 }
+    - { op: load, c: 6, p: communities, r: owners_per_community }
+  cf3:
+    - { op: unload, c: 4, p: total_owners, r: 1 }
+    - { op: load, c: 1, p: total_owners, r: 1 }
+  cf4:
+    - { op: unload, c: 4, p: communities, r: 1 }
+    - { op: load, c: 2, p: communities, r: owners_per_community }
+  cf5: 0
+  cf6:
+    - { op: unload, c: 4, p: communities, r: 1 }
+    # - { op: unload, c: 7, p: total_owners, r: 1 }
+    - op: load
+      c: 0
+      p: communities
+      r: 1
+      agg:
+        - type: map
+          v: owners_per_community
+  cf7: 0
+
+read:
+  tables:
+    cf1: { w: 8 }
+    cf2: { w: 6 }
+    cf3: { w: 1 }
+    cf4: { w: 4 }
+    cf5: { w: 7 }
+    cf6: { w: 6 }
+    cf7: { w: 4 }
+    U: { w: 7 }
+  queries:
+    q14:
+      f: 5
+      plans:
+        - cf1:
+        - cf2:
+          cf3:
+        - cf4:
+          U:
+        - cf6:
+        - cf7:
+          U:
+
+results:
+  qmin:
+    plans: { q14: 5 }
+  qbal:
+    plans: { q14: 4 }
+    data:
+      cf6:
+        - { group: init, table: communities, op: unload }
+        # - { group: init, table: users, op: unload }
+        - { group: qbal, table: cf6, op: load }
+  codevo:
+    plans: { q14: 5 }

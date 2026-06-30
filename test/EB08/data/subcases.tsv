@@ -1,0 +1,6 @@
+subcase	seed	posts	tags_per_post	embeds_per_post	topics	topics_per_post	posts_per_topic
+A	255	50000	5	3	100	10	5000
+X	255	50000	5	3	50	10	10000
+Y	255	50000	5	3	100	50	25000
+B	255	100000	5	3	50	10	20000
+C	255	100000	5	3	100	50	50000

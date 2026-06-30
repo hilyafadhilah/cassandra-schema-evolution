@@ -1,0 +1,7 @@
+subcase	key	qmin.cf2	qmin	qbal.cf1	qbal	codevo.cf4	codevo.cf5	codevo.cf6	codevo
+A	cost	5,17	5,17	6,58	6,58	9,89	4,70	11,30	25,89
+A	res	8,8s	8,8s	9,2s	9,2s	14,0s	9,0s	9,2s	32,2s
+B	cost	6,91	6,91	8,32	8,32	28,63	6,44	30,04	65,10
+B	res	9,4s	9,4s	9,4s	9,4s	22,8s	9,0s	9,4s	41,2s
+C	cost	21,35	21,35	22,76	22,76	123,00	20,88	124,41	268,29
+C	res	14,8s	14,8s	15,2s	15,2s	59,8s	15,4s	15,8s	91,0s

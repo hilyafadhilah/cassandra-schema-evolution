@@ -1,0 +1,92 @@
+subcases:
+  A:
+    posts: 10_000
+    comments_per_post: 5
+    likes_per_comment: 2
+  B:
+    posts: 10_000
+    comments_per_post: 5
+    likes_per_comment: 5
+  C:
+    posts: 10_000
+    comments_per_post: 10
+    likes_per_comment: 10
+seed: 0xDEADBEEF
+
+cost:
+  cf1:
+    - { op: unload, c: 3, p: comments, r: likes_per_comment }
+    - op: load
+      c: 5
+      p: comments
+      r: likes_per_comment
+  cf2:
+    - { op: unload, c: 3, p: comments, r: likes_per_comment }
+    - op: load
+      c: 2
+      p: comments
+      r: likes_per_comment
+  cf3: 0
+  cf4:
+    - { op: unload, c: 3, p: comments, r: likes_per_comment }
+    - op: load
+      c: 0
+      p: likes
+      r: 1
+  cf5:
+    - { op: unload, c: 3, p: comments, r: likes_per_comment }
+    - op: load
+      c: 1
+      p: comments
+      r: likes_per_comment
+  cf6:
+    - { op: unload, c: 3, p: comments, r: likes_per_comment }
+    - op: load
+      c: 3
+      p: likes
+      r: 1
+
+read:
+  tables:
+    cf1: { w: 5 }
+    cf2: { w: 2 }
+    cf3: { w: 7 }
+    cf4: { w: 0 }
+    cf5: { w: 1 }
+    cf6: { w: 3 }
+    U: { w: 7 }
+  queries:
+    q15:
+      f: 5
+      plans:
+        - cf1:
+        - cf2:
+          U: { n_var: likes_per_comment }
+        - cf5:
+          cf6: { n_var: likes_per_comment }
+
+results:
+  qmin:
+    plans: { q15: 2 }
+    data:
+      cf2:
+        - { group: init, table: likes, op: unload }
+        - { group: qmin, table: cf2, op: load }
+  qbal:
+    plans: { q15: 1 }
+    data:
+      cf1:
+        - { group: init, table: likes, op: unload }
+        - { group: qbal, table: cf1, op: load }
+  codevo:
+    plans: { q15: 3 }
+    data:
+      cf4:
+        - { group: init, table: likes, op: unload }
+        - { group: codevo, table: cf4, op: load }
+      cf5:
+        - { group: init, table: likes, op: unload }
+        - { group: codevo, table: cf5, op: load }
+      cf6:
+        - { group: init, table: likes, op: unload }
+        - { group: codevo, table: cf6, op: load }
