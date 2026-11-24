@@ -36,8 +36,10 @@ read:
       f: 50
       plans:
         - rplus:
+          sort: [comment.likesCount desc]
         - R:
           U: { n_var: root_comments_per_post }
+          sort: [comment.likesCount desc]
     q05:
       f: 50
       plans:

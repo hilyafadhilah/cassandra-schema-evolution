@@ -199,6 +199,7 @@ class TestCaseConfig(BaseModel):
             return None
         return evol_result_config(v)
 
+
 class TestCaseDataGenerator[C: GeneratorConfig]:
     def __init__(self, conf_class: type[C]) -> None:
         self.conf_class = conf_class

@@ -24,15 +24,15 @@ cost:
 
 results:
   qmin:
-    plans: { q04: 2 }
+    plans: { q09: 2 }
   qbal:
-    plans: { q04: 1 }
+    plans: { q09: 1 }
     data:
       cf1:
         - { group: init, table: user_memberships, op: unload }
         - { group: qbal, table: cf1, op: load }
   codevo:
-    plans: { q04: 2 }
+    plans: { q09: 2 }
 
 read:
   tables:
@@ -40,13 +40,14 @@ read:
     Mu: { w: 6 }
     cf3: { w: 6 }
   queries:
-    q04:
+    q09:
       f: 50
       plans:
         - cf1:
         - Mu:
           sort:
             - membership.role asc
+            - membership.joinedAt desc
         - cf3:
           sort:
             - membership.joinedAt desc

@@ -65,7 +65,7 @@ cost:
   cf20:
     - { op: unload, c: 11, p: posts, r: 1 }
     - op: load
-      c: 9
+      c: 10
       p: posts
       r: 1
       agg:
