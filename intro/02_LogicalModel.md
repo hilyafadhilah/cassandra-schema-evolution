@@ -73,3 +73,10 @@ In NoSE, a query plan is a specified set of operations which consist of:
 | Q13 |   5 | get P      |           1 |  11 | - |           16.61 |            83.05 |
 | Q14 |   5 | get C      |           1 |   4 | - |            9.54 |            47.70 |
 | Q15 |   5 | get L      |           1 |   3 | - |            8.53 |            42.65 |
+
+
+## Read more
+
+- [00: Intro](./README.md)
+- [01: Conceptual Model](./01_ConceptualModel.md)
+- [03: Input](./03_Input.md)

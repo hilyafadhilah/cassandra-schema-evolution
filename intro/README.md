@@ -14,9 +14,9 @@ ManhattanDB's architecture and data model is still very similar to Cassandra.
 [Read about ManhattanDB's data model here.](https://blog.x.com/en/engineering/native-secondary-indexing-in-manhattan)
 
 
-### What's in this docs
+## What's in this docs
 
-- **Intro (this page)**  
+- **00: Intro** (this page)  
   Describes the general overview of the social media app used in the case study.
 - [01: Conceptual Model](./01_ConceptualModel.md)  
   Details the initial ER model of the social media app and its queries (access pattern).
@@ -29,7 +29,7 @@ ManhattanDB's architecture and data model is still very similar to Cassandra.
   (GDM), the conceptual model we use as input for our schema evolution methodology.
 
 
-### The Social Media App
+## The Social Media App
 
 Another reason the social media app was chosen is I can imagine more feature updates because,
 of course, I use social media apps in the daily. So for this case study, the initial state and
@@ -63,7 +63,7 @@ Some further notes to help visualize the app features:
 - The comments feature is more similar to TikTok.
 
 
-### Future Research: Secondary Indexing & Materialized Views
+## Future Research: Secondary Indexing & Materialized Views
 
 If you read the ManhattanDB article I linked above, you will notice that *some* of the problems that
 is meant to be addressed by our schema evolution methodology is solved by the *secondary indexing*
@@ -98,3 +98,9 @@ Instead, what will happen is the methodology could suggest to use *secondary ind
 *materialized views* in place of a table candidate, where it thinks the performance would be
 better.
 
+
+## Read more
+
+- [01: Conceptual Model](./01_ConceptualModel.md)
+- [02: Logical Model](./02_LogicalModel.md)
+- [03: Input](./03_Input.md)

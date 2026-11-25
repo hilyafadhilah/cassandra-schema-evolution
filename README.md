@@ -42,7 +42,7 @@ The methodology adopts various mechanisms from the following works:
 - [NoSE by Mior et al. (2017)](https://doi.org/10.1109/TKDE.2017.2722412) itself
   - *Support query* mechanism, for `WHERE` condition removal
 
-#### Major contribution: The evolution cost model
+### Major contribution: The evolution cost model
 
 My major contribution is defining the **schema evolution cost model** for Cassandra as the total
 migration runtime, which is formally defined in the following image.

@@ -286,3 +286,10 @@ query Q15_CommentLikes:
     comment.likers as liker
   WHERE post.id = ? AND comment.id = ?
 ```
+
+
+## Read more
+
+- [00: Intro](./README.md)
+- [01: Conceptual Model](./01_ConceptualModel.md)
+- [02: Logical Model](./01_ConceptualModel.md)
