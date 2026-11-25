@@ -59,20 +59,20 @@ For workload cost, the commands are different.
 ### Table Types
 
 - `p1`: single-row partition
-  - CSV generation args
+  - CSV generation args  
     `--column-counts`, `--row-counts`
-  - Result fields
+  - Result fields  
     `num_columns`, `num_rows`
 - `pn`: multi-row partition
-  - CSV generation args
+  - CSV generation args  
     `--column-counts`, `--num-partitions`, `--partition-row-counts`
-  - Result fields
+  - Result fields  
     `num_columns`, `num_partitions`, `num_partition_rows`
 
 The aggregated variants, `agg-p1` & `agg-pn`, have additional arguments and result fields:
-- CSV generation args
+- CSV generation args  
   `--agg-types`, `--value-counts`, `--field-counts`, `--num-agg-columns`
-- Result fields
+- Result fields  
   `agg_type`, `num_values`, `num_fields`
 
 The commands in `cmd.sh` receives the table type name as argument, e.g.
@@ -80,22 +80,22 @@ The commands in `cmd.sh` receives the table type name as argument, e.g.
 
 ### Commands
 
-- `gen_prel <type>`, `gpr <type>`
+- `gen_prel <type>`, `gpr <type>`  
   Run CSV generation script for `<type>`, available args are described above.
   This command can be run several times to produce as many table data as needed.
   The generated files can be found in `./data/<type>/` categorized by table.
-- `run_prel <type>`, `rpr <type>`
+- `run_prel <type>`, `rpr <type>`  
   Run nohup `dsbulk` load-unload for all tables found in `./data/<type>/`.
   The stdout logs can be found in `./out/logs` and PID in `./out/pid`.
   The `dsbulk` work logs can be found in `./out/<type>` categorized by table.
-- `watch_prel`, `wpr`
+- `watch_prel`, `wpr`  
   See the running stdout logs using `tail`.
-- `extract_prel <type> <csv_path>`, `epr <type> <csv_path>`
+- `extract_prel <type> <csv_path>`, `epr <type> <csv_path>`  
   Extract results from `dsbulk` logs in `./out/<type>` into `./results/<csv_path>.load.csv` and
   `./results/<csv_path>.unload.csv`.
-- `clean_prel`, `cpr`
+- `clean_prel`, `cpr`  
   Wipe out `./data/*` and `./out/*`. Be careful when calling this command.
-- `kill_prel`, `kpr`
+- `kill_prel`, `kpr`  
   Stop the currently running test based on the contents of `./out/pid`.
 
 ### Modules & Scripts

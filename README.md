@@ -52,19 +52,20 @@ migration runtime, which is formally defined in the following image.
 
 ## What's in this repository
 
-1. `/prelim`: [Preliminary tests🔗](./prelim/)
+1. `/prelim`: [Preliminary tests🔗](./prelim/)  
    Preliminary testing is done for (a) **formulating the cost model** during the development stage 
    of our methodology and (b) **fitting/calibrating** the model itself during the evaluation stage
    of our methodology.
-2. `/intro`: [Case study introduction for the evaluation stage🔗](./intro)
+2. `/intro`: [Case study introduction for the evaluation stage🔗](./intro)  
    Documentation for the initial state (before evolution) of the case study for the evaluation stage
    of our methodology. The docs describes in detail relevant informations, such as: the data model
    & access patterns, conceptual & logical schema, and GDM input.
-3. `/eval`: [Scripts, results, & docs for the evaluation stage🔗](./eval)
+3. `/eval`: [Scripts, results, & docs for the evaluation stage🔗](./eval)  
    Scripts, results, & docs for the evolutions done on the case study for the evaluation stage.
    Each test case is separate from one another unless stated otherwise.
-4. `/containers`
+4. `/containers`  
    Python & DSBulk dockerfiles
+
 
 ## TODO!!
 

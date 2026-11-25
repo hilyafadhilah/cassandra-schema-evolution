@@ -6,11 +6,11 @@
 
 ### Conceptual Queries
 
-- Each entity/relationship (E/R) referred are distinguished using the monospace style.
+- Each entity/relationship (E/R) referred are distinguished using the monospace style.  
   Ex: `Post`, `author`, `member`.
-- An E/R reference can be bind to a variable to be referenced further later, denoted by square brackets (inspired by the ER Query Language developed by Lawley, 1994).
+- An E/R reference can be bind to a variable to be referenced further later, denoted by square brackets (inspired by the ER Query Language developed by Lawley, 1994).  
   Ex: `Post [P]`, `member [m]`. Entities use uppercase letters,  relationships use lowercase.
-- E/R attributes are written using dot notation. The asterisk `*` can be used to refer to all attributes of an E/R.
+- E/R attributes are written using dot notation. The asterisk `*` can be used to refer to all attributes of an E/R.  
   Ex: `P.PostedAt`, `m.Membership.Role`, `P.*`, `m.*`.
 - Relationship roles are written descriptively in the Description field, just to distinguish entities.
 - The tilde `~` in the Limit field denotes unlimited amount.

@@ -55,23 +55,23 @@ it obviously affects the cost model. How we get the cost model for aggregations 
 [`agg` module](./agg/).
 
 The final formulation results in 4 cost functions that need to be fitted:
-1. `T_unload(𝑝,𝑟,𝑐)`
+1. `T_unload(𝑝,𝑟,𝑐)`  
    Unload time of a table with 𝑝 partitions, 𝑟 rows/partition, and 𝑐 columns.
-2. `T_load(𝑝,𝑟,𝑐)`
+2. `T_load(𝑝,𝑟,𝑐)`  
    Load time of a table with 𝑝 partitions, 𝑟 rows/partition, and 𝑐 non-aggregate columns.
-3. `T_overhead_set(𝑝,𝑟,𝑣)`
+3. `T_overhead_set(𝑝,𝑟,𝑣)`  
    Load overhead time of an aggregate column of type set & list for a table with 𝑝 partitions,
    𝑟 rows/partition, and 𝑣 aggregate values/row.
-4. `T_overhead_map(𝑝,𝑟,𝑣)`
+4. `T_overhead_map(𝑝,𝑟,𝑣)`  
    Load overhead time of an aggregate column of type map for a table with 𝑝 partitions,
    𝑟 rows/partition, and 𝑣 aggregate values/row.
 
 ### Fitting The Model for Evaluation of The Methodology
 
 For `T_unload` and `T_load`, we divide each into two categories:
-- **P-N High** : 𝑝 and 𝑟 in the range of 100–1000
+- **P-N High** : 𝑝 and 𝑟 in the range of 100–1000  
   Data & post-processing scripts in [the `pn` module](./pn/).
-- **P-N Low**  : 𝑝 in the range of 10k–1000k, 𝑟 in the range of 5–50
+- **P-N Low**  : 𝑝 in the range of 10k–1000k, 𝑟 in the range of 5–50  
   Data & post-processing scripts in [the `pn-low` module](./pn-low/).
 This is due to the nature of the data of the case study which makes the tables usually
 falls in these two categories.

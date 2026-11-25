@@ -16,15 +16,15 @@ ManhattanDB's architecture and data model is still very similar to Cassandra.
 
 ### What's in this docs
 
-- **Intro (this page)**
+- **Intro (this page)**  
   Describes the general overview of the social media app used in the case study.
-- [01: Conceptual Model](./01_ConceptualModel.md)
+- [01: Conceptual Model](./01_ConceptualModel.md)  
   Details the initial ER model of the social media app and its queries (access pattern).
   The queries are defined in the conceptual sense, not in any query language such as SQL or CQL.
-- [02: Logical Model](./02_LogicalModel.md)
+- [02: Logical Model](./02_LogicalModel.md)  
   Details the initial Cassandra tables and how it relates to the conceptual model and its queries.
   Additionally, the costs of the queries are calculated.
-- [03: Input](./03_Input.md)
+- [03: Input](./03_Input.md)  
   Translates the conceptual model and its queries from chapter 01 into the Generic Data Metamodel
   (GDM), the conceptual model we use as input for our schema evolution methodology.
 
