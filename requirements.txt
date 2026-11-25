@@ -1,4 +1,4 @@
-cassandra-driver
+scylla-driver
 numpy
 faker
 matplotlib
@@ -8,3 +8,5 @@ inflect
 pandas
 scipy
 statsmodels
+mimesis
+scikit-learn
