@@ -2,8 +2,12 @@
 
 ![WIP](https://img.shields.io/badge/version-v0.0.2--alpha-blue) ![WIP](https://img.shields.io/badge/⚠️_WORK_IN_PROGRESS-red)
 
-Computer science bachelor's degree final project @ Institut Teknologi Bandung (ITB)
+Computer science bachelor's degree final project @ Institut Teknologi Bandung (ITB)  
 by Hilya Fadhilah Imania.
+
+**Accepted and presented on the [2026 IEEE International Conference on Data and Software Engineering (ICoDSE)🔗](https://icodse.org/program-schedule.html#icodse-session-2a).**
+
+***(To be published on IEEE Xplore).***
 
 Officially registered in [ITB's digital library (digilib.itb.ac.id)🔗](https://digilib.itb.ac.id/gdl/view_data/metode-evolusi-model-data-berbasis-query-untuk-model-data-column-family-cassandra-13520024).
 
