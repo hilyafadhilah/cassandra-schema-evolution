@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="278" font-family="monospace" font-size="14">
+  <text x="10" y="22">K&#160;&#160;Tag</text>
+  <text x="10" y="44">C↓&#160;PostedAt</text>
+  <text x="10" y="66">C↑&#160;PostId</text>
+  <text x="10" y="88">&#160;&#160;&#160;Title</text>
+  <text x="10" y="110">&#160;&#160;&#160;Contents</text>
+  <text x="10" y="132">&#160;&#160;&#160;Language</text>
+  <text x="10" y="154">&#160;&#160;&#160;Set&#x3C;Tags&#x3E;</text>
+  <text x="10" y="176">&#160;&#160;&#160;AuthorId</text>
+  <text x="10" y="198">&#160;&#160;&#160;AuthorHandle</text>
+  <text x="10" y="220">&#160;&#160;&#160;AuthorIcon</text>
+  <text x="10" y="242">&#160;&#160;&#160;CommunityId</text>
+  <text x="10" y="264">&#160;&#160;&#160;CommunityName</text>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="322" font-family="monospace" font-size="14">
+  <text x="10" y="22">K&#160;&#160;PostId</text>
+  <text x="10" y="44">&#160;&#160;&#160;Title</text>
+  <text x="10" y="66">&#160;&#160;&#160;Contents</text>
+  <text x="10" y="88">&#160;&#160;&#160;Language</text>
+  <text x="10" y="110">&#160;&#160;&#160;Set&#x3C;Tags&#x3E;</text>
+  <text x="10" y="132">&#160;&#160;&#160;Map&#x3C;EmbedId,&#160;{</text>
+  <text x="10" y="154">&#160;&#160;&#160;&#160;&#160;EmbedType</text>
+  <text x="10" y="176">&#160;&#160;&#160;&#160;&#160;EmbedMedia</text>
+  <text x="10" y="198">&#160;&#160;&#160;}&#x3E;</text>
+  <text x="10" y="220">&#160;&#160;&#160;AuthorId</text>
+  <text x="10" y="242">&#160;&#160;&#160;AuthorHandle</text>
+  <text x="10" y="264">&#160;&#160;&#160;AuthorIcon</text>
+  <text x="10" y="286">&#160;&#160;&#160;CommunityId</text>
+  <text x="10" y="308">&#160;&#160;&#160;CommunityName</text>
+</svg>

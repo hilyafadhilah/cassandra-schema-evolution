@@ -1,0 +1,17 @@
+\documentclass[preview,border=2pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+\[
+\renewcommand{\arraystretch}{1.2}
+\begin{array}{l}
+\displaystyle \textbf{minimize} \sum_k C''_k \delta_k \\
+\textbf{subject to} \\
+\quad \text{All used tables being present} \\
+\qquad \delta_{ik} \leq \delta_k, \forall{i, k} \\
+\quad \text{Maximum space usage } S \\
+\displaystyle \qquad \sum_k s_k \delta_k < S \\
+\quad \text{Plus per-query plan graph constraints}
+\end{array}
+\]
+\end{document}

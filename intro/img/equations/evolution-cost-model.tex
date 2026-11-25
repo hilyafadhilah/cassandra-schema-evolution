@@ -1,0 +1,27 @@
+\documentclass[preview,border=10pt]{standalone}
+\usepackage{amsmath}
+
+\begin{document}
+\noindent The evolution cost is defined as the total migration runtime across all tables, given by:
+\begin{gather*}
+\sum_{k} \hspace{.1em} C''_{k} \delta_{k} \\
+C''_{k} = \text{migration runtime of table } k
+\end{gather*}
+\noindent where
+\begin{equation}
+C'' = C''_\text{unload} + C''_\text{transform} + C''_\text{load}
+\end{equation}
+\begin{align}
+    C''_\text{load} &= T_\text{load}(c,p,r) \\
+    C''_\text{unload} &= T_\text{unload}(c,p,r) + \sum_a \Delta_a
+\end{align}
+\begin{equation}
+\Delta_a =
+\begin{cases}
+    T_\text{overhead of set/list-of-ID}(p, r, v),
+        & a \text{ of type set} \\
+    T_\text{overhead of map-of-UDT}(p, r, v),
+        & a \text{ of type map}
+\end{cases}
+\end{equation}
+\end{document}

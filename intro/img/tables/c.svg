@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="190" font-family="monospace" font-size="14">
+  <text x="10" y="22">K&#160;&#160;CommunityId</text>
+  <text x="10" y="44">&#160;&#160;&#160;Name</text>
+  <text x="10" y="66">&#160;&#160;&#160;Icon</text>
+  <text x="10" y="88">&#160;&#160;&#160;Description</text>
+  <text x="10" y="110">&#160;&#160;&#160;Map&#x3C;OwnerId,&#160;{</text>
+  <text x="10" y="132">&#160;&#160;&#160;&#160;&#160;OwnerHandle</text>
+  <text x="10" y="154">&#160;&#160;&#160;&#160;&#160;OwnerIcon</text>
+  <text x="10" y="176">&#160;&#160;&#160;}&#x3E;</text>
+</svg>

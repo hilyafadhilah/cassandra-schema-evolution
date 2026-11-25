@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="124" font-family="monospace" font-size="14">
+  <text x="10" y="22">K&#160;&#160;PostId</text>
+  <text x="10" y="44">K&#160;&#160;CommentId</text>
+  <text x="10" y="66">C↑&#160;UserId</text>
+  <text x="10" y="88">&#160;&#160;&#160;UserHandle</text>
+  <text x="10" y="110">&#160;&#160;&#160;UserIcon</text>
+</svg>

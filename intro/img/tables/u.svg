@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="256" font-family="monospace" font-size="14">
+  <text x="10" y="22">K&#160;&#160;UserId</text>
+  <text x="10" y="44">&#160;&#160;&#160;Handle</text>
+  <text x="10" y="66">&#160;&#160;&#160;Email</text>
+  <text x="10" y="88">&#160;&#160;&#160;Icon</text>
+  <text x="10" y="110">&#160;&#160;&#160;Bio</text>
+  <text x="10" y="132">&#160;&#160;&#160;Region</text>
+  <text x="10" y="154">&#160;&#160;&#160;Set&#x3C;Languages&#x3E;</text>
+  <text x="10" y="176">&#160;&#160;&#160;{</text>
+  <text x="10" y="198">&#160;&#160;&#160;&#160;&#160;BadgeId</text>
+  <text x="10" y="220">&#160;&#160;&#160;&#160;&#160;BadgeContents</text>
+  <text x="10" y="242">&#160;&#160;&#160;}</text>
+</svg>

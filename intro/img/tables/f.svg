@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="168" font-family="monospace" font-size="14">
+  <text x="10" y="22">K&#160;&#160;FollowerId</text>
+  <text x="10" y="44">C↓&#160;FollowedAt</text>
+  <text x="10" y="66">C↑&#160;FolloweeId</text>
+  <text x="10" y="88">&#160;&#160;&#160;FolloweeHandle</text>
+  <text x="10" y="110">&#160;&#160;&#160;FolloweeIcon</text>
+  <text x="10" y="132">&#160;&#160;&#160;FolloweeEmail</text>
+  <text x="10" y="154">&#160;&#160;&#160;FolloweeBio</text>
+</svg>

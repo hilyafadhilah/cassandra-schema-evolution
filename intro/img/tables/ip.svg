@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="190" font-family="monospace" font-size="14">
+  <text x="10" y="22">K&#160;&#160;PostId</text>
+  <text x="10" y="44">C↓&#160;Timestamp</text>
+  <text x="10" y="66">C↑&#160;InteractionType</text>
+  <text x="10" y="88">C↑&#160;UserId</text>
+  <text x="10" y="110">&#160;&#160;&#160;UserHandle</text>
+  <text x="10" y="132">&#160;&#160;&#160;UserIcon</text>
+  <text x="10" y="154">&#160;&#160;&#160;UserRegion</text>
+  <text x="10" y="176">&#160;&#160;&#160;UserLanguages</text>
+</svg>

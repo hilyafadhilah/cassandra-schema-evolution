@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="195" height="168" font-family="monospace" font-size="14">
+  <text x="10" y="22">K&#160;&#160;UserId</text>
+  <text x="10" y="44">C↓&#160;JoinedAt</text>
+  <text x="10" y="66">C↑&#160;CommunityId</text>
+  <text x="10" y="88">&#160;&#160;&#160;Role</text>
+  <text x="10" y="110">&#160;&#160;&#160;CommunityName</text>
+  <text x="10" y="132">&#160;&#160;&#160;CommunityIcon</text>
+  <text x="10" y="154">&#160;&#160;&#160;CommunityDescription</text>
+</svg>
