@@ -100,7 +100,10 @@ T_load(𝑝, 𝑟, 𝑐)   = 0.47𝑐 + 0.0001147𝑝 + 0.07𝑟 + 0.0000102𝑝
 
 # Aggregate
 T_overhead_set(𝑝, 𝑟, 𝑣) = (1.52 * 𝑝𝑟𝑣 * 10^-6) - 0.4
-T_overhead_map(𝑝, 𝑟, 𝑣) = 82.95 * (𝑝 ^ 0.87) * (𝑟 ^ 0.80) * (𝑣 ^ 0.81) * 10^-6 
+T_overhead_map(𝑝, 𝑟, 𝑣) = 82.95 * (𝑝 ^ 0.87) * (𝑟 ^ 0.80) * (𝑣 ^ 0.81) * 10^-6
+
+# Read Workload Cost (NoSE's Model)
+T(n, w) = 0.5n + w + 0.01nw + 5
 ```
 
 ### Files
@@ -127,7 +130,12 @@ prelim/results/
 │   ├── regress-load.py          Fit T_load [🤖]
 │   └── regress-unload.py        Fit T_unload [🤖]
 │
-└── agg/                         Agg Module: Aggregate columns
-    ├── README.md                Read more about this module here
-    └── ...
+├── agg/                         Agg Module: Aggregate columns
+│   ├── README.md                Read more about this module here
+│   └── ...
+│
+└── read/                        Read Module: For NoSE's workload cost fitting
+    ├── data.csv                 Results data
+    └── regress.py               Fit T(n, w) [🤖]
 ```
+> 🤖: AI-generated script
